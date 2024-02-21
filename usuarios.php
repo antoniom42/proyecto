@@ -23,8 +23,9 @@
     <h1 class="text-center" >Incidencias IES Antonio Machado</h1>
 
     <h3 class="text-center">Usuarios del sistema</h3>
-    
+    <a style="text-align: center;" href="creausu.php" class='btn btn-outline-dark mb-2' id="anadir"> <i class="bi bi-person-plus"></i> Crear Usuario</a>
     <div class="conttabla">
+    
 
     <table class="table table-striped table-bordered table-hover" id='tablausus'>
           <thead class="table-dark">

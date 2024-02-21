@@ -50,11 +50,12 @@
         
                 header("Content-type:text/html;charset=utf-8");
 
-                $comprobar = "SELECT * FROM usuproyecto where usuario='$usuario' AND contrasena='$passwd'";
+                $comprobar = "SELECT * FROM usuproyecto WHERE usuario='$usuario' AND contrasena='$passwd'";
                 $result = $conn->query($comprobar);
                 while($row=$result->fetch()){
                     $admin=$row['admin'];
-                    
+                    $fecha=$row['fecha'];
+                    $user=$row['usuario'];
                 }
 
                 
@@ -66,6 +67,17 @@
                     session_start();
                     $_SESSION['usuario']=$usuario;
                     $_SESSION['admin']=$admin;
+                    $_SESSION['fecha']=$fecha;
+                    $_SERVER['REMOTE_ADDR']=$ip;
+
+                    date_default_timezone_set('Europe/Madrid');
+                    $session=date("d-m-Y h:i");
+                    $actusesion = "UPDATE usuproyecto set fecha = '$session' WHERE usuario = '$usuario'";
+                    $result = $conn->query($actusesion);
+
+                    $actuip = "UPDATE usuproyecto set ip = '$ip' WHERE usuario = '$usuario'";
+                    $resultip = $conn->query($actuip);
+
                     header("Refresh:1; url=incidencias.php");
         
                 } else {

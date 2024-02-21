@@ -1,0 +1,1 @@
+ALTER TABLE `usuproyecto` ADD `rol` VARCHAR(20) NOT NULL AFTER `fecha`, ADD `ultimo_acceso` VARCHAR(60) NOT NULL AFTER `rol`, ADD `ip` VARCHAR(25) NOT NULL AFTER `ultimo_acceso`;
