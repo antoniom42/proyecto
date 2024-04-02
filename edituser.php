@@ -8,7 +8,7 @@
 
     if($_SESSION['admin']!="Administrador"){
         echo "<script> alert ('Debe ser admin para acceder a esta página') 
-        window.location='http://http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
+        window.location='http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
     }
 
 

@@ -52,13 +52,13 @@
         <table class="table table-striped table-bordered table-hover">
           <thead class="table-dark">
             <tr>
-              <th  scope="col">Usuario</th>
+              <th  scope="col">Correo</th>
               <th  scope="col">Planta</th>
               <th  scope="col">Aula</th>
               <th  scope="col">Descripción</th>
-              <th  scope="col">Fecha alta</th>
+              <th  scope="col"><a href="incidencias.php?ordenar=alta">Fecha alta</th>
               <th  scope="col">Fecha revisión</th>
-              <th  scope="col">Fecha solución</th>
+              <th  scope="col"><a href="incidencias.php?ordenar=resolucion">Fecha alta</th>
               <th  scope="col">Comentario</th>
               <th  scope="col" colspan="3" class="text-center">Operaciones</th>
             </tr>  
@@ -73,15 +73,25 @@
             $user = $_SESSION['usuario'];
 
             if($_SESSION['admin']!="Administrador"){
-              $query="SELECT * FROM incidencias WHERE user='$user'";
+              if ($_GET['ordenar']=='') {
+                $query="SELECT * FROM incidencias WHERE user='$user'";
+              } else {
+                $query="SELECT * FROM incidencias WHERE user='$user' ORDER BY ". $_GET['ordenar'] . " DESC";
+              }
+              
             }else{
-              $query="SELECT * FROM incidencias ";
+              if ($_GET['ordenar']=='') {
+                $query="SELECT * FROM incidencias ";
+              } else {
+                $query="SELECT * FROM incidencias ORDER BY ". $_GET['ordenar'] . " DESC";
+              }
             }
       
             $vista_incidencias= $conn->query($query);
 
             while($row = $vista_incidencias->fetch()){
-              $user = $row['user'];                
+              $id = $row['id']; 
+              $email = $row['email'];                               
               $planta = $row['planta'];        
               $aula = $row['aula'];         
               $descripcion = $row['descripcion'];        
@@ -96,7 +106,7 @@
                 $resolucion='';
               }
               echo "<tr >";
-              echo " <th scope='row' >{$user}</th>";
+              echo " <th scope='row' >{$email}</th>";
               echo " <td > {$planta}</td>";
               echo " <td > {$aula}</td>";
               echo " <td >{$descripcion} </td>";

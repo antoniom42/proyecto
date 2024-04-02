@@ -70,7 +70,7 @@ include 'conexion.php';
           <a class="nav-link largo" href="creausu.php" style="color: white;" id='creausus'>Crear usuario</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link corto" href="usuarios.php" style="color: white;" id='usuarios'>Usuarios</a>
+          <a class="nav-link corto" href="usuarios.php" style="color: white;" id='usuarios'>Panel Admnistración</a>
         </li>
       </ul>
       <!-- Left links -->
@@ -81,9 +81,8 @@ include 'conexion.php';
         
         <img src="https://cdn-icons-png.flaticon.com/512/260/260507.png" id='persona' alt="" >
 
-        <?php
-            echo $_SESSION['usuario'];
-        ?>
+        <?php echo "Usted está conectado como " . $_SESSION['usuario'] . " como " . $_SESSION['admin']; ?> <br>
+        <?php echo "Fecha última conexión: " . $_SESSION['fecha']; ?>
 
       </div>
     </div>

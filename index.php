@@ -50,12 +50,13 @@
         
                 header("Content-type:text/html;charset=utf-8");
 
-                $comprobar = "SELECT * FROM usuproyecto WHERE usuario='$usuario' AND contrasena='$passwd'";
+                $comprobar = "SELECT * FROM usuproyecto where usuario='$usuario' AND contrasena='$passwd'";
                 $result = $conn->query($comprobar);
                 while($row=$result->fetch()){
                     $admin=$row['admin'];
+                    $email=$row['email'];
                     $fecha=$row['fecha'];
-                    $user=$row['usuario'];
+                    $ip=$row['ip'];
                 }
 
                 
@@ -67,16 +68,20 @@
                     session_start();
                     $_SESSION['usuario']=$usuario;
                     $_SESSION['admin']=$admin;
+                    $_SESSION['email']=$email;
                     $_SESSION['fecha']=$fecha;
-                    $_SERVER['REMOTE_ADDR']=$ip;
+                    $_SESSION['ip']=$ip;
 
                     date_default_timezone_set('Europe/Madrid');
-                    $session=date("d-m-Y h:i");
-                    $actusesion = "UPDATE usuproyecto set fecha = '$session' WHERE usuario = '$usuario'";
-                    $result = $conn->query($actusesion);
+                    setlocale(LC_TIME, 'es_VE.UTF-8','esp');
 
-                    $actuip = "UPDATE usuproyecto set ip = '$ip' WHERE usuario = '$usuario'";
-                    $resultip = $conn->query($actuip);
+                    $sesion= date("d")." de ".strftime("%B"). " de ".date("Y") . " a las ". date("H:i") ;
+                    $actusesion = "UPDATE usuproyecto set fecha = '$sesion' WHERE usuario ='$usuario' ";
+                    $result = $conn->query($actusesion);
+                    
+                    $ipclient=$_SERVER['REMOTE_ADDR'];
+                    $queryip = "UPDATE usuproyecto set ip = '$ipclient' WHERE usuario ='$usuario' ";
+                    $result = $conn->query($queryip);
 
                     header("Refresh:1; url=incidencias.php");
         

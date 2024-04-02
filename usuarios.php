@@ -8,12 +8,24 @@
 
     if($_SESSION['admin']!="Administrador"){
         echo "<script> alert ('Debe ser admin para acceder a esta página') 
-        window.location='http://http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
+        window.location='http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
     }
 
 
 ?>
 
+<script>
+
+  function confirmar(usuario){
+        var confirmacion = confirm('¿Estás seguro de que deseas eliminar este usuario? Esto también eliminará todas sus incidencias.');
+
+    if (confirmacion) {
+        // Si el usuario aecpta, redirige a la página de eliminar
+        window.location='deleteuser.php?eliminar=' + usuario;
+    }
+  }
+
+</script>
 
 <!-- Navbar -->
 
@@ -23,16 +35,16 @@
     <h1 class="text-center" >Incidencias IES Antonio Machado</h1>
 
     <h3 class="text-center">Usuarios del sistema</h3>
-    <a style="text-align: center;" href="creausu.php" class='btn btn-outline-dark mb-2' id="anadir"> <i class="bi bi-person-plus"></i> Crear Usuario</a>
-    <div class="conttabla">
+
+    <a href="createaula.php" class='btn btn-outline-dark mb-2' id="anadir"> <i class="bi bi-person-plus"></i> Añadir aula</a>
     
+    <div class="conttabla">
 
     <table class="table table-striped table-bordered table-hover" id='tablausus'>
           <thead class="table-dark">
             <tr>
-              <th  scope="col" class='text-center'>Nombre</th>
-              <th  scope="col" class='text-center'>Rol</th>
-              <th  scope="col" colspan="2" class="text-center">Operaciones</th>
+              <th  scope="col" class='text-center'><a href="usuarios.php?orden=usuario">Nombre</th>
+              <th  scope="col" class='text-center'><a href="usuarios.php?orden=email">Email</th>
             </tr>  
           </thead>
         <tbody>
@@ -42,17 +54,21 @@
  
               
         <?php //SELECT DE TODO
-            $query="SELECT * FROM usuproyecto ORDER BY admin";               
+
+            if ($_GET['orden']=='') {
+              $query="SELECT * FROM usuproyecto";
+            } else {
+              $query="SELECT * FROM usuproyecto ORDER BY ". $_GET['orden'];
+            }
+                          
             $vista_incidencias= $conn->query($query);
 
             while($row = $vista_incidencias->fetch()){
               $usuario = $row['usuario'];                
-              $rol = $row['admin'];        
+              $email = $row['email'];        
               echo "<tr >";
               echo " <th scope='row' class='text-center'>{$usuario}</th>";
-              echo " <td class='text-center'> {$rol}</td>";
-              echo " <td class='text-center' > <a href='edituser.php?editar&usuario={$usuario}' class='btn btn-secondary'><i class='bi bi-pencil'></i> Editar</a> </td>";
-              echo " <td class='text-center'>  <a href='deleteuser.php?eliminar={$usuario}' class='btn btn-danger'> <i class='bi bi-trash'></i> Eliminar</a> </td>";
+              echo " <td class='text-center'> {$email}</td>";
               echo " </tr> ";
             }  
 

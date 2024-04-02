@@ -5,7 +5,7 @@
 
     if($_SESSION['admin']!="Administrador"){
         echo "<script> alert ('Debe ser admin para acceder a esta página') 
-        window.location='http://http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
+        window.location='http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
     }
 
 
@@ -30,6 +30,8 @@
             <form action="#" method="post" id="formu">
             <label for="">Usuario</label>
             <input type="text" name='usuario' placeholder='Ej.:Manolito' > <br>
+            <label for="">Email</label>
+            <input type="text" name='email' placeholder='Ej.:manoito@yahoo.com' > <br>
             <label for="" class='preg'>Contraseña</label>
             <input type="password" name='contrasena' placeholder='Ej.:sUp3rM4N0lit0'><br> 
             <label for="" class='preg'>Repita la contraseña</label>
@@ -58,6 +60,7 @@
             $passwd=base64_encode(htmlspecialchars($_POST['contrasena']));
             $passwd2=base64_encode(htmlspecialchars($_POST['contrasena2']));
             $admin=(htmlspecialchars($_POST['admin']));
+            $email=htmlspecialchars($_POST['email']);
 
             
 
@@ -87,7 +90,7 @@
 
                     /*insert*/
 
-                    $insert = "INSERT INTO usuproyecto (usuario,contrasena,admin) VALUES('$usuario','$passwd','$admin')";
+                    $insert = "INSERT INTO usuproyecto (usuario,contrasena,admin, email) VALUES('$usuario','$passwd','$admin', '$email')";
                     $resultado = $conn->query($insert);
 
 

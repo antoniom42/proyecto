@@ -8,7 +8,7 @@
 
   if($_SESSION['admin']=="Profesor"){
       echo "<script> alert ('No tienes suficientes permisos para acceder a esta página') 
-      window.location='http://http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
+      window.location='http://antonio.thsite.top/crud/gestion/incidencias.php'</script>";
   } else {
 
    if(isset($_GET['incidencias_id']))
@@ -74,6 +74,10 @@
   <div class="container ">
     <form action="" method="post">
       <div class="form-group">
+      <div class="form-group">
+        <label for="email" >Email</label>
+        <input type="text" name="email" class="form-control" value="<?php echo $_SESSION['email']  ?>" disabled>
+      </div>
         <label for="planta" >Planta</label>
         <select name="planta" id="planta" class="form-control" value="<?php echo $planta  ?>" required>
           <option value="Baja">Baja</option>
